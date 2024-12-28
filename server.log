@@ -1,0 +1,231 @@
+2024-12-28 23:32:48 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:32:54 [INFO]: New user connected
+2024-12-28 23:32:57 [INFO]: New user connected
+2024-12-28 23:32:59 [INFO]: User disconnected
+2024-12-28 23:33:00 [INFO]: New user connected
+2024-12-28 23:33:03 [INFO]: Room created: 18ff4deb-5979-482b-8c90-2d57823bd4a4
+2024-12-28 23:33:13 [INFO]: User disconnected
+2024-12-28 23:33:13 [INFO]: New user connected
+2024-12-28 23:33:13 [INFO]: User DUQcQroWFpYzDaPVAAAH joined room: 18ff4deb-5979-482b-8c90-2d57823bd4a4 as host
+2024-12-28 23:33:36 [INFO]: User disconnected
+2024-12-28 23:33:36 [INFO]: New user connected
+2024-12-28 23:33:36 [INFO]: User yn4lHQA19Ml_CvcVAAAJ joined room: 18ff4deb-5979-482b-8c90-2d57823bd4a4 as participant
+2024-12-28 23:33:45 [INFO]: User disconnected
+2024-12-28 23:33:46 [INFO]: New user connected
+2024-12-28 23:33:46 [INFO]: User dF_VLRlKvlhld1P8AAAL joined room: 18ff4deb-5979-482b-8c90-2d57823bd4a4 as participant
+2024-12-28 23:33:56 [INFO]: User disconnected
+2024-12-28 23:33:56 [INFO]: New user connected
+2024-12-28 23:33:57 [INFO]: User disconnected
+2024-12-28 23:33:58 [INFO]: New user connected
+2024-12-28 23:35:35 [ERROR]: Error generating token: moment is not defined
+2024-12-28 23:35:44 [INFO]: User disconnected
+2024-12-28 23:35:44 [INFO]: User disconnected
+2024-12-28 23:35:45 [INFO]: New user connected
+2024-12-28 23:35:45 [INFO]: New user connected
+2024-12-28 23:44:47 [ERROR]: Error generating token: moment is not defined
+2024-12-28 23:45:26 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:45:27 [INFO]: New user connected
+2024-12-28 23:45:27 [INFO]: New user connected
+2024-12-28 23:45:30 [INFO]: Room created: b2845c87-9461-4cac-a0ce-c01d715be525
+2024-12-28 23:45:56 [INFO]: User disconnected
+2024-12-28 23:45:56 [INFO]: New user connected
+2024-12-28 23:46:00 [INFO]: User disconnected
+2024-12-28 23:46:00 [INFO]: New user connected
+2024-12-28 23:46:13 [INFO]: User disconnected
+2024-12-28 23:46:13 [INFO]: New user connected
+2024-12-28 23:54:29 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:54:30 [INFO]: New user connected
+2024-12-28 23:54:30 [INFO]: New user connected
+2024-12-28 23:54:35 [INFO]: User disconnected
+2024-12-28 23:54:36 [ERROR]: Error verifying token: Cannot read properties of undefined (reading 'valid')
+2024-12-28 23:54:36 [INFO]: New user connected
+2024-12-28 23:54:37 [INFO]: User disconnected
+2024-12-28 23:54:40 [INFO]: New user connected
+2024-12-28 23:55:39 [ERROR]: Error generating token: getaddrinfo ENOTFOUND another-microservice-url
+2024-12-28 23:56:22 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:56:23 [INFO]: New user connected
+2024-12-28 23:56:25 [INFO]: New user connected
+2024-12-28 23:56:31 [INFO]: User disconnected
+2024-12-28 23:56:32 [INFO]: New user connected
+2024-12-28 23:56:50 [INFO]: User disconnected
+2024-12-28 23:56:50 [INFO]: New user connected
+2024-12-28 23:56:52 [INFO]: User disconnected
+2024-12-28 23:56:53 [INFO]: New user connected
+2024-12-28 23:57:20 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:21 [INFO]: New user connected
+2024-12-28 23:57:21 [INFO]: New user connected
+2024-12-28 23:57:25 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:25 [INFO]: New user connected
+2024-12-28 23:57:26 [INFO]: New user connected
+2024-12-28 23:57:27 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:28 [INFO]: New user connected
+2024-12-28 23:57:29 [INFO]: New user connected
+2024-12-28 23:57:33 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:33 [INFO]: New user connected
+2024-12-28 23:57:33 [INFO]: New user connected
+2024-12-28 23:57:35 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:36 [INFO]: New user connected
+2024-12-28 23:57:36 [INFO]: New user connected
+2024-12-28 23:57:42 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:57:43 [INFO]: New user connected
+2024-12-28 23:57:43 [INFO]: New user connected
+2024-12-28 23:57:46 [INFO]: User disconnected
+2024-12-28 23:57:48 [INFO]: New user connected
+2024-12-28 23:57:52 [INFO]: User disconnected
+2024-12-28 23:57:52 [INFO]: undefined
+2024-12-28 23:57:52 [ERROR]: Error verifying token: Cannot read properties of undefined (reading 'valid')
+2024-12-28 23:57:52 [INFO]: New user connected
+2024-12-28 23:58:27 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:58:28 [INFO]: New user connected
+2024-12-28 23:58:30 [INFO]: New user connected
+2024-12-28 23:58:44 [INFO]: User disconnected
+2024-12-28 23:58:44 [INFO]: [object Object]
+2024-12-28 23:58:44 [INFO]: New user connected
+2024-12-28 23:59:06 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:59:07 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:59:07 [INFO]: New user connected
+2024-12-28 23:59:16 [INFO]: {"isHost":true,"roomId":"e687083a-d03d-4aa1-8e6c-0d45e2221e83","participants":[],"expiration":"2024-12-31T23:59:59.000Z","startTime":"2024-12-28T23:00:00.000Z"}
+2024-12-28 23:59:16 [INFO]: New user connected
+2024-12-28 23:59:17 [INFO]: User disconnected
+2024-12-28 23:59:37 [INFO]: Server is running on http://localhost:3000
+2024-12-28 23:59:38 [INFO]: New user connected
+2024-12-28 23:59:53 [INFO]: New user connected
+2024-12-29 00:00:31 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:31 [INFO]: New user connected
+2024-12-29 00:00:32 [INFO]: New user connected
+2024-12-29 00:00:34 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:34 [INFO]: New user connected
+2024-12-29 00:00:35 [INFO]: New user connected
+2024-12-29 00:00:42 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:43 [INFO]: New user connected
+2024-12-29 00:00:43 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:44 [INFO]: New user connected
+2024-12-29 00:00:46 [INFO]: New user connected
+2024-12-29 00:00:47 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:47 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:00:48 [INFO]: New user connected
+2024-12-29 00:00:48 [INFO]: New user connected
+2024-12-29 00:01:00 [INFO]: User disconnected
+2024-12-29 00:01:00 [INFO]: New user connected
+2024-12-29 00:01:08 [INFO]: User disconnected
+2024-12-29 00:01:08 [INFO]: New user connected
+2024-12-29 00:01:19 [INFO]: User disconnected
+2024-12-29 00:01:19 [INFO]: New user connected
+2024-12-29 00:01:34 [INFO]: User disconnected
+2024-12-29 00:01:34 [INFO]: New user connected
+2024-12-29 00:02:07 [INFO]: User disconnected
+2024-12-29 00:02:07 [INFO]: New user connected
+2024-12-29 00:02:17 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:17 [INFO]: New user connected
+2024-12-29 00:02:17 [INFO]: New user connected
+2024-12-29 00:02:19 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:20 [INFO]: New user connected
+2024-12-29 00:02:20 [INFO]: New user connected
+2024-12-29 00:02:23 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:24 [INFO]: New user connected
+2024-12-29 00:02:24 [INFO]: New user connected
+2024-12-29 00:02:27 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:27 [INFO]: New user connected
+2024-12-29 00:02:27 [INFO]: New user connected
+2024-12-29 00:02:28 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:29 [INFO]: New user connected
+2024-12-29 00:02:29 [INFO]: New user connected
+2024-12-29 00:02:30 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:31 [INFO]: New user connected
+2024-12-29 00:02:32 [INFO]: New user connected
+2024-12-29 00:02:32 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:33 [INFO]: New user connected
+2024-12-29 00:02:33 [INFO]: New user connected
+2024-12-29 00:02:35 [INFO]: User disconnected
+2024-12-29 00:02:36 [ERROR]: Error verifying token: Cannot set properties of undefined (setting 'valid')
+2024-12-29 00:02:36 [INFO]: New user connected
+2024-12-29 00:02:37 [INFO]: User disconnected
+2024-12-29 00:02:40 [INFO]: New user connected
+2024-12-29 00:02:54 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:55 [INFO]: New user connected
+2024-12-29 00:02:55 [INFO]: New user connected
+2024-12-29 00:02:56 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:57 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:02:57 [INFO]: New user connected
+2024-12-29 00:02:59 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:00 [INFO]: New user connected
+2024-12-29 00:03:00 [INFO]: New user connected
+2024-12-29 00:03:02 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:03 [INFO]: New user connected
+2024-12-29 00:03:03 [INFO]: New user connected
+2024-12-29 00:03:06 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:07 [INFO]: New user connected
+2024-12-29 00:03:08 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:08 [INFO]: New user connected
+2024-12-29 00:03:09 [INFO]: New user connected
+2024-12-29 00:03:11 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:12 [INFO]: New user connected
+2024-12-29 00:03:12 [INFO]: New user connected
+2024-12-29 00:03:13 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:14 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:15 [INFO]: New user connected
+2024-12-29 00:03:16 [INFO]: New user connected
+2024-12-29 00:03:23 [INFO]: User disconnected
+2024-12-29 00:03:23 [ERROR]: Error verifying token: Cannot set properties of undefined (setting 'valid')
+2024-12-29 00:03:23 [INFO]: New user connected
+2024-12-29 00:03:25 [INFO]: New user connected
+2024-12-29 00:03:41 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:41 [INFO]: New user connected
+2024-12-29 00:03:41 [INFO]: New user connected
+2024-12-29 00:03:42 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:03:43 [INFO]: New user connected
+2024-12-29 00:03:43 [INFO]: New user connected
+2024-12-29 00:03:48 [INFO]: User disconnected
+2024-12-29 00:03:49 [INFO]: New user connected
+2024-12-29 00:03:56 [INFO]: User disconnected
+2024-12-29 00:03:56 [ERROR]: Error verifying token: Cannot set properties of undefined (setting 'valid')
+2024-12-29 00:03:56 [INFO]: New user connected
+2024-12-29 00:03:58 [INFO]: User disconnected
+2024-12-29 00:03:59 [INFO]: New user connected
+2024-12-29 00:04:07 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:04:08 [INFO]: New user connected
+2024-12-29 00:04:08 [INFO]: New user connected
+2024-12-29 00:04:13 [INFO]: User disconnected
+2024-12-29 00:04:14 [ERROR]: Error verifying token: Cannot set properties of undefined (setting 'valid')
+2024-12-29 00:04:14 [INFO]: New user connected
+2024-12-29 00:04:15 [INFO]: User disconnected
+2024-12-29 00:04:17 [INFO]: New user connected
+2024-12-29 00:04:26 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:04:28 [INFO]: New user connected
+2024-12-29 00:04:28 [INFO]: New user connected
+2024-12-29 00:04:36 [INFO]: User disconnected
+2024-12-29 00:04:36 [ERROR]: Error verifying token: Cannot set properties of undefined (setting 'valid')
+2024-12-29 00:04:36 [INFO]: New user connected
+2024-12-29 00:04:38 [INFO]: User disconnected
+2024-12-29 00:04:39 [INFO]: New user connected
+2024-12-29 00:05:07 [INFO]: User disconnected
+2024-12-29 00:05:08 [INFO]: New user connected
+2024-12-29 00:05:22 [INFO]: User disconnected
+2024-12-29 00:05:22 [INFO]: New user connected
+2024-12-29 00:05:27 [INFO]: User disconnected
+2024-12-29 00:05:27 [INFO]: New user connected
+2024-12-29 00:06:12 [INFO]: User disconnected
+2024-12-29 00:06:12 [INFO]: New user connected
+2024-12-29 00:06:34 [INFO]: User disconnected
+2024-12-29 00:06:34 [INFO]: New user connected
+2024-12-29 00:06:46 [INFO]: User disconnected
+2024-12-29 00:06:46 [INFO]: New user connected
+2024-12-29 00:06:56 [INFO]: User disconnected
+2024-12-29 00:06:57 [INFO]: New user connected
+2024-12-29 00:07:04 [INFO]: User disconnected
+2024-12-29 00:07:04 [INFO]: New user connected
+2024-12-29 00:07:10 [INFO]: User disconnected
+2024-12-29 00:07:10 [INFO]: New user connected
+2024-12-29 00:07:15 [INFO]: User disconnected
+2024-12-29 00:07:15 [INFO]: New user connected
+2024-12-29 00:07:16 [INFO]: User disconnected
+2024-12-29 00:07:16 [INFO]: New user connected
+2024-12-29 00:08:02 [INFO]: Server is running on http://localhost:3000
+2024-12-29 00:08:03 [INFO]: New user connected
+2024-12-29 00:08:03 [INFO]: New user connected
+2024-12-29 00:08:11 [INFO]: User disconnected
+2024-12-29 00:08:11 [INFO]: New user connected
+2024-12-29 00:08:16 [INFO]: User disconnected
+2024-12-29 00:08:16 [INFO]: New user connected
+2024-12-29 00:08:21 [INFO]: User disconnected
+2024-12-29 00:08:21 [INFO]: New user connected
