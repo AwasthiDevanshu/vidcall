@@ -24,12 +24,16 @@ const roomToken = urlParams.get('token');
 // Initialize media stream for preview
 navigator.mediaDevices.getUserMedia({ video: true, audio: true })
     .then(stream => {
+        console.log('Local stream obtained:', stream);
         previewVideo.srcObject = stream;
         previewStream = stream;
+        localStream = stream; // Ensure localStream is set for video call
+        localVideo.srcObject = stream; // Set the stream to local video element
     })
     .catch(error => {
         console.error('Error accessing media devices for preview.', error);
     });
+
 
 // Socket event listeners
 socket.on('host', () => {
@@ -83,16 +87,19 @@ function createPeerConnection() {
 
     peerConnection.onicecandidate = event => {
         if (event.candidate) {
+            console.log('ICE candidate:', event.candidate);
             socket.emit('candidate', { candidate: event.candidate, room: roomToken });
         }
     };
 
     peerConnection.ontrack = event => {
+        console.log('Remote stream received:', event.streams[0]);
         remoteVideo.srcObject = event.streams[0];
         remoteStream = event.streams[0];
     };
 
     localStream.getTracks().forEach(track => {
+        console.log('Adding track:', track);
         peerConnection.addTrack(track, localStream);
     });
 }
