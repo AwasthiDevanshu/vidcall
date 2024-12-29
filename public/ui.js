@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error sharing screen: ' + error.message + '. Please check your browser permissions.');
         }
     });
-
+    let recordedChunks = [];
     startRecordingBtn.addEventListener('click', () => {
         mediaRecorder = new MediaRecorder(localStream);
         mediaRecorder.ondataavailable = event => {
@@ -173,6 +173,11 @@ document.addEventListener('DOMContentLoaded', () => {
         messageElement.textContent = `${data.sender}: ${data.message}`;
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+    function sendReaction(reaction) { // Implementation of sendReaction 
+        console.log('Reaction sent:', reaction); 
+        socket.emit('sendReaction', reaction); 
+        console.log('Reaction sent:', reaction); 
     }
 
     function displayFile(data) {
