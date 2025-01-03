@@ -81,7 +81,7 @@ function init(server) {
 
                 const room = rooms[data.room];
                 if (room) {
-                    socket.to(data.room).emit('offer', data);
+                    socket.to(data.room).broadcast.emit('offer', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling offer`);
                     socket.emit('error', { message: 'Room not found when handling offer.' });
@@ -102,7 +102,7 @@ function init(server) {
 
                 const room = rooms[data.room];
                 if (room) {
-                    socket.to(data.room).emit('answer', data);
+                    socket.to(data.room).broadcast.emit('answer', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling answer`);
                     socket.emit('error', { message: 'Room not found when handling answer.' });
@@ -123,7 +123,7 @@ function init(server) {
 
                 const room = rooms[data.room];
                 if (room) {
-                    socket.to(data.room).emit('candidate', data);
+                    socket.to(data.room).broadcast.emit('candidate', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling candidate`);
                     socket.emit('error', { message: 'Room not found when handling candidate.' });
@@ -144,7 +144,7 @@ function init(server) {
 
                 const room = rooms[data.room];
                 if (room) {
-                    socket.to(data.room).emit('fileShare', data);
+                    socket.to(data.room).broadcast.emit('fileShare', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling fileShare`);
                     socket.emit('error', { message: 'Room not found when handling fileShare.' });
@@ -184,4 +184,3 @@ function init(server) {
 }
 
 module.exports = { init };
-    

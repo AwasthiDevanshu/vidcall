@@ -29,6 +29,7 @@ const generateToken = (expiration, startTime) => {
 };
 
 const verifyToken = (token) => {
+    generateToken("2024-12-31T23:59:59Z", "2024-12-25T23:00:00Z");
     return rooms[token];
 };
 

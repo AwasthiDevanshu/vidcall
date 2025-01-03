@@ -406,3 +406,78 @@
 2024-12-29 09:29:00 [INFO]: User P7KM0jqNyJ4em_xVAAAJ joining room: 582ab1a6-e16c-4b53-ac1e-c3d56e50201a as participant
 2024-12-29 09:29:00 [INFO]: User P7KM0jqNyJ4em_xVAAAJ joined room: 582ab1a6-e16c-4b53-ac1e-c3d56e50201a as participant
 2024-12-29 09:29:00 [INFO]: Current room participants: ["P7KM0jqNyJ4em_xVAAAJ"]
+2024-12-29 10:37:35 [INFO]: Server is running on http://localhost:3005
+2024-12-29 10:39:34 [INFO]: Server is running on http://localhost:3005
+2024-12-29 10:39:44 [INFO]: New user connected
+2024-12-29 10:39:45 [INFO]: User disconnected
+2024-12-29 10:39:46 [INFO]: New user connected
+2024-12-29 10:41:29 [INFO]: User disconnected
+2024-12-29 10:41:31 [INFO]: New user connected
+2024-12-29 10:41:38 [INFO]: User disconnected
+2024-12-29 11:05:20 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:05:52 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:06:21 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:16:11 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:17:40 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:17:52 [INFO]: New user connected
+2024-12-29 11:17:54 [INFO]: User disconnected
+2024-12-29 11:17:55 [INFO]: New user connected
+2024-12-29 11:18:00 [INFO]: User disconnected
+2024-12-29 11:18:02 [INFO]: New user connected
+2024-12-29 11:18:10 [INFO]: User disconnected
+2024-12-29 11:18:11 [INFO]: New user connected
+2024-12-29 11:18:57 [INFO]: User disconnected
+2024-12-29 11:19:00 [INFO]: New user connected
+2024-12-29 11:19:53 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:19:55 [INFO]: New user connected
+2024-12-29 11:20:15 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:20:18 [INFO]: New user connected
+2024-12-29 11:20:20 [INFO]: User disconnected
+2024-12-29 11:20:22 [INFO]: New user connected
+2024-12-29 11:20:27 [INFO]: User disconnected
+2024-12-29 11:20:27 [INFO]: New user connected
+2024-12-29 11:20:27 [INFO]: User QisVtuzFyOC1k2TSAAAF joining room: 6760a2fb-093b-496b-9ede-2e5822efbebd as participant
+2024-12-29 11:20:27 [INFO]: User QisVtuzFyOC1k2TSAAAF joined room: 6760a2fb-093b-496b-9ede-2e5822efbebd as participant
+2024-12-29 11:20:27 [INFO]: Current room participants: ["QisVtuzFyOC1k2TSAAAF"]
+2024-12-29 11:20:51 [INFO]: New user connected
+2024-12-29 11:20:51 [INFO]: User 0FlrCy7p8IhQ12erAAAH joining room: 8bacebc0-5686-4d5a-a9a5-bfb826c5265c as host
+2024-12-29 11:20:51 [INFO]: User 0FlrCy7p8IhQ12erAAAH joined room: 8bacebc0-5686-4d5a-a9a5-bfb826c5265c as host
+2024-12-29 11:20:51 [INFO]: Current room participants: []
+2024-12-29 11:21:33 [INFO]: New user connected
+2024-12-29 11:21:33 [INFO]: User sMTn2SZxJchexferAAAJ joining room: 2dc3e108-beb9-498d-b282-e1d609bf1933 as participant
+2024-12-29 11:21:33 [INFO]: User sMTn2SZxJchexferAAAJ joined room: 2dc3e108-beb9-498d-b282-e1d609bf1933 as participant
+2024-12-29 11:21:33 [INFO]: Current room participants: ["sMTn2SZxJchexferAAAJ"]
+2024-12-29 11:21:48 [INFO]: User disconnected
+2024-12-29 11:21:51 [INFO]: User disconnected
+2024-12-29 11:21:51 [INFO]: New user connected
+2024-12-29 11:21:52 [INFO]: User u0F3YwK1H-XYObtIAAAL joining room: fe6d4f5e-2e0c-4abc-bd42-cfc4afed4eef as participant
+2024-12-29 11:21:52 [INFO]: User u0F3YwK1H-XYObtIAAAL joined room: fe6d4f5e-2e0c-4abc-bd42-cfc4afed4eef as participant
+2024-12-29 11:21:52 [INFO]: Current room participants: ["u0F3YwK1H-XYObtIAAAL"]
+2024-12-29 11:22:05 [INFO]: New user connected
+2024-12-29 11:22:05 [INFO]: User wYHknZLyD9nVP-JdAAAN joining room: 5f80c2e9-d044-4819-862e-91370c6beaaf as participant
+2024-12-29 11:22:05 [INFO]: User wYHknZLyD9nVP-JdAAAN joined room: 5f80c2e9-d044-4819-862e-91370c6beaaf as participant
+2024-12-29 11:22:05 [INFO]: Current room participants: ["wYHknZLyD9nVP-JdAAAN"]
+2024-12-29 11:22:07 [INFO]: User disconnected
+2024-12-29 11:22:09 [INFO]: New user connected
+2024-12-29 11:22:09 [INFO]: User p0TZAbstM-Mtt5kpAAAP joining room: 87868ed6-99ce-491f-84fb-66fa7e708659 as host
+2024-12-29 11:22:09 [INFO]: User p0TZAbstM-Mtt5kpAAAP joined room: 87868ed6-99ce-491f-84fb-66fa7e708659 as host
+2024-12-29 11:22:09 [INFO]: Current room participants: []
+2024-12-29 11:22:25 [INFO]: User disconnected
+2024-12-29 11:22:34 [INFO]: User disconnected
+2024-12-29 11:22:34 [INFO]: New user connected
+2024-12-29 11:22:34 [INFO]: User TUtoYzrrWdVC2zTRAAAR joining room: f911b55e-ca5e-45da-a2d4-037e1f082000 as participant
+2024-12-29 11:22:34 [INFO]: User TUtoYzrrWdVC2zTRAAAR joined room: f911b55e-ca5e-45da-a2d4-037e1f082000 as participant
+2024-12-29 11:22:34 [INFO]: Current room participants: ["TUtoYzrrWdVC2zTRAAAR"]
+2024-12-29 11:26:33 [INFO]: User disconnected
+2024-12-29 11:26:33 [INFO]: New user connected
+2024-12-29 11:26:45 [INFO]: User disconnected
+2024-12-29 11:26:46 [INFO]: New user connected
+2024-12-29 11:37:33 [INFO]: User disconnected
+2024-12-29 11:37:52 [INFO]: User disconnected
+2024-12-29 11:37:53 [INFO]: New user connected
+2024-12-29 11:37:53 [INFO]: User KhjUmtgGSBan2z02AAAX joining room: b3bbe4cc-b806-4b69-aca7-3c805561db3c as participant
+2024-12-29 11:37:53 [INFO]: User KhjUmtgGSBan2z02AAAX joined room: b3bbe4cc-b806-4b69-aca7-3c805561db3c as participant
+2024-12-29 11:37:53 [INFO]: Current room participants: ["KhjUmtgGSBan2z02AAAX"]
+2024-12-29 11:42:18 [INFO]: Server is running on http://localhost:3005
+2024-12-29 11:42:19 [INFO]: New user connected
+2024-12-29 11:43:34 [INFO]: User disconnected
