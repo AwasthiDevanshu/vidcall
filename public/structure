@@ -1,0 +1,17 @@
+webrtc-video-call/
+├── public/
+│   ├── index.html
+│   ├── webrtc.js
+│   ├── ui.js
+│   ├── styles.css
+│   └── chat.js
+├── server/
+│   ├── server.js
+│   ├── token.js
+│   └── file-upload.js
+├── recordings/
+│   ├── .gitkeep
+├── uploads/
+│   ├── .gitkeep
+├── package.json
+└── README.md

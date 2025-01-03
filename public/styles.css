@@ -1,0 +1,142 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: #343a40;
+}
+
+.container {
+    max-width: 100%;
+    padding: 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.video-container {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    position: relative;
+}
+
+video {
+    width: 45%;
+    border-radius: 8px;
+    margin: 0 20px;
+}
+
+.floating-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.floating-controls .btn {
+    margin: 0 5px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.controls .btn {
+    margin: 5px;
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.chat-messages {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.chat-messages p {
+    margin: 5px 0;
+}
+
+#chatInput {
+    margin-top: 10px;
+}
+
+#fileInput {
+    display: none;
+}
+
+#extendExpirationContainer {
+    text-align: right;
+    margin-top: 20px;
+}
+
+#reactionContainer {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+#reactionContainer .btn {
+    margin: 0 5px;
+}
+
+#recordingIndicator {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#screenSharePreview {
+    text-align: center;
+    margin: 20px 0;
+}
+
+#participantListContainer {
+    margin-top: 20px;
+}
+
+#participantList {
+    list-style: none;
+    padding: 0;
+}
+
+#participantList .list-group-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#pollContainer {
+    margin-top: 20px;
+}
+
+#pollResults {
+    margin-top: 20px;
+}
+
+.btn {
+    border-radius: 50px;
+    padding: 10px;
+}
+
+.btn-primary, .btn-secondary, .btn-info, .btn-success, .btn-warning, .btn-danger {
+    border-radius: 50px;
+}
