@@ -200,9 +200,9 @@ socket.on('candidate', async (data) => {
 async function handleCandidate(candidate) {
     try {
         // Validate ICE candidate properties
-        if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
-            throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
-        }
+        // if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
+        //     throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
+        // }
 
         await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     } catch (error) {
