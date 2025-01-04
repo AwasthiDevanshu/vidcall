@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const displayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
             const screenTrack = displayStream.getTracks()[0];
+            peerConnection.getSenders().forEach(sender => {
+                if (sender.track.kind === 'video') {
+                    sender.replaceTrack(screenTrack);
+                }
+            });
             screenShareVideo.srcObject = displayStream;
             document.getElementById('screenSharePreview').style.display = 'block';
             $('#videos-visible').addClass("flex-column");
@@ -43,6 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             screenTrack.onended = () => {
+                peerConnection.getSenders().forEach(sender => {
+                    if (sender.track.kind === 'video') {
+                        sender.replaceTrack(localStream.getVideoTracks()[0]);
+                    }
+                });
                 document.getElementById('screenSharePreview').style.display = 'none';
                 $('#videos-visible').removeClass("flex-column");
                 $('#videos-visible').css({ "width": "100%" });
@@ -53,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error sharing screen: ' + error.message + '. Please check your browser permissions.');
         }
     });
+
+
 
     previewJoinMeetingBtn.addEventListener('click', () => {
         localStream = previewStream;
