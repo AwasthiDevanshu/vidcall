@@ -70,6 +70,7 @@ mediaStreamInitialized.then(() => {
 socket.on('host', async () => {
     await mediaStreamInitialized;
     startCall();
+    console.log('Host connected');
     if (waitingMessage) {
         waitingMessage.style.display = 'none'; // Hide the waiting message
     }
@@ -89,16 +90,16 @@ socket.on('hostDisconnected', () => {
 });
 
 socket.on('offer', async (data) => {
-    await handleOffer(data);
+    console.log('Offer received:', data);
+    await handleOffer(data.offer);
 });
 
 socket.on('answer', async (data) => {
-    await handleAnswer(data);
+    console.log('Answer received:', data);
+    await handleAnswer(data.answer);
 });
 
-socket.on('candidate', async (data) => {
-    await handleCandidate(data);
-});
+
 
 // Join room using token from URL
 if (roomToken) {
@@ -109,13 +110,15 @@ if (roomToken) {
                 socket.emit('join', { roomToken, isHost: data.isHost });
             } else {
                 alert('Invalid room token.');
+                alert('Invalid room token.');
+                window.location.href = '/';
+                alert('Invalid room token.');             
                 window.location.href = '/';
             }
         })
         .catch(error => {
             console.error('Error verifying token:', error);
             alert('Error verifying token.');
-            window.location.href = '/';
         });
 } else {
     alert('No room token provided in URL.');
@@ -158,6 +161,7 @@ async function createOffer() {
     }
 }
 
+
 async function handleOffer(offer) {
     createPeerConnection();
     try {
@@ -182,13 +186,24 @@ async function handleAnswer(answer) {
     }
 }
 
+socket.on('candidate', async (data) => {
+    console.log('ICE candidate received:', data); // Log received candidate data
+    await handleCandidate(data.candidate);
+});
+
 async function handleCandidate(candidate) {
     try {
+        // Validate ICE candidate properties
+        if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
+            throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
+        }
+
         await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     } catch (error) {
         console.error('Error handling an ICE candidate:', error);
     }
 }
+
 
 async function startCall() {
     if (localStream) {

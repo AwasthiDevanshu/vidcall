@@ -20,21 +20,21 @@ function init(server) {
                 }
 
                 if (room.startTime && moment().isBefore(room.startTime)) {
+                    logger.info('before call scheduled');
                     socket.emit('scheduled', { message: `Call is scheduled at ${moment(room.startTime).format('YYYY-MM-DD HH:mm:ss')}` });
                     return;
                 }
 
                 if (room.expiration && moment().isAfter(room.expiration)) {
+                    logger.info('token expired');
                     socket.emit('error', { message: 'Token has expired.' });
                     return;
                 }
 
-                if (isHost && room.host) {
-                    socket.emit('error', { message: 'Room already has a host.' });
-                    return;
-                }
+                
 
                 if (room.participants.length >= MAX_PARTICIPANTS) {
+                    logger.info('room participant limit reached');
                     socket.emit('error', { message: 'Room participant limit reached.' });
                     return;
                 }
@@ -80,8 +80,12 @@ function init(server) {
                 }
 
                 const room = rooms[data.room];
+                console.log('room', room);
+                console.log('data', data);
+                console.log('offer', room.roomId);
+
                 if (room) {
-                    socket.to(data.room).broadcast.emit('offer', data);
+                    socket.to(room.roomId).emit('offer', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling offer`);
                     socket.emit('error', { message: 'Room not found when handling offer.' });
@@ -101,8 +105,11 @@ function init(server) {
                 }
 
                 const room = rooms[data.room];
+                console.log('room', room);
+                console.log('data', data);
+                console.log('offer', room.roomId);
                 if (room) {
-                    socket.to(data.room).broadcast.emit('answer', data);
+                    socket.to(room.roomId).emit('answer', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling answer`);
                     socket.emit('error', { message: 'Room not found when handling answer.' });
@@ -122,8 +129,9 @@ function init(server) {
                 }
 
                 const room = rooms[data.room];
+                console.log('room', room);
                 if (room) {
-                    socket.to(data.room).broadcast.emit('candidate', data);
+                    socket.to(room.roomId).emit('candidate', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling candidate`);
                     socket.emit('error', { message: 'Room not found when handling candidate.' });
@@ -144,7 +152,7 @@ function init(server) {
 
                 const room = rooms[data.room];
                 if (room) {
-                    socket.to(data.room).broadcast.emit('fileShare', data);
+                    socket.to(room.roomId).emit('fileShare', data);
                 } else {
                     logger.error(`Room ${data.room} not found when handling fileShare`);
                     socket.emit('error', { message: 'Room not found when handling fileShare.' });
