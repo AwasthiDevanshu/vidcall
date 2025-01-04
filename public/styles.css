@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: "Noto Sans", serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
 body {
     background-color: #f8f9fa;
     font-family: 'Georgia', 'Times New Roman', serif;
@@ -14,48 +23,117 @@ body {
 }
 
 .video-container {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin: 20px;
-    position: relative;
-}
-
-video {
-    width: 45%;
-    border-radius: 8px;
-    margin: 0 20px;
-}
-
-.floating-controls {
     display: flex;
     justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    height: 100vh;
+    padding:20px;
+    background-color: rgba(20, 21, 22, 1);
+    gap: 10px;
 }
 
-.floating-controls .btn {
-    margin: 0 5px;
+.video-container #previewVideo {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
 }
 
 .controls {
+    position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px;
+    bottom: 20px;
+    width: fit-content;
+    padding: 10px 12px;
+    border-radius: 10px;
+    z-index: 999;
+    left: 50%;
+    right: 50%;
+    transform: translateX(-50%);
 }
 
-.controls .btn {
-    margin: 5px;
+.controls .ctrl-overlay {
+    background-color: rgba(0, 0, 0, 0.09);
+    backdrop-filter: blur(27px);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
 }
+
+.controls .ctrl-btns {
+    z-index: 1;
+    gap: 8px;
+}
+
+.controls .ctrl-btns button {
+    color:white;
+    background-color: rgba(255, 255, 255, 0.11);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px !important;
+    height: 40px !important;
+    transition: ease-in-out !important;
+}
+
+.controls .ctrl-btns #previewJoinMeeting {
+    width: fit-content !important;
+    gap: 8px !important;
+    background-color: rgba(0, 141, 229, 1);
+    border-radius: 5px;
+}
+.controls .ctrl-btns #previewJoinMeeting:hover {
+    color:white;
+}
+
+.controls .ctrl-btns button:hover {
+   color: black;
+   background-color: white;
+   transform: scale(1.1);
+}
+
+.preview-text {
+    color:white;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 12pt;
+    font-weight: 400;
+    background-color: rgba(255, 255, 255, 0.11);
+    padding: 5px 15px;
+    border-radius: 4px;
+}
+
+video {
+    border-radius: 8px;
+    background-color: rgba(20, 21, 22, 1);
+    width: 100%;
+    height: 100%;
+}
+
+#videos-visible {
+    width: 100%;
+    gap: 20px;
+}
+
+/*.floating-controls {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    position: absolute;*/
+/*    bottom: 20px;*/
+/*    left: 50%;*/
+/*    transform: translateX(-50%);*/
+/*}*/
+
+/*.controls {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    margin-top: 20px;*/
+/*}*/
 
 .chat-container {
     display: flex;
@@ -105,8 +183,7 @@ video {
 }
 
 #screenSharePreview {
-    text-align: center;
-    margin: 20px 0;
+    height: 100%;
 }
 
 #participantListContainer {
@@ -139,4 +216,9 @@ video {
 
 .btn-primary, .btn-secondary, .btn-info, .btn-success, .btn-warning, .btn-danger {
     border-radius: 50px;
+}
+
+
+#startRecording, #stopRecording, #extendExpirationBtn {
+    display: none;
 }

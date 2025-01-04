@@ -1,4 +1,4 @@
-const socket = io.connect(`http://${window.location.hostname}:3005`); // Specify the WebSocket server port
+const socket = io.connect(`https://${window.location.hostname}`); // Specify the WebSocket server port
 
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
@@ -194,9 +194,9 @@ socket.on('candidate', async (data) => {
 async function handleCandidate(candidate) {
     try {
         // Validate ICE candidate properties
-        // if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
-        //     throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
-        // }
+        if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
+            throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
+        }
 
         await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
     } catch (error) {

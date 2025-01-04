@@ -35,6 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const screenTrack = displayStream.getTracks()[0];
             screenShareVideo.srcObject = displayStream;
             document.getElementById('screenSharePreview').style.display = 'block';
+            $('#videos-visible').addClass("flex-column");
+            $('#videos-visible').css({
+                "width": "20%",
+            });
+            $('#screenSharePreview').css({
+                "width": "80%",
+            });
 
             screenTrack.onended = () => {
                 screenShareVideo.srcObject = previewStream;
@@ -48,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
     previewJoinMeetingBtn.addEventListener('click', () => {
         localStream = previewStream;
         document.getElementById('previewContainer').style.display = 'none';
+        document.getElementById('previewJoinMeeting').style.display = 'none';
+        $("#startRecording, #extendExpirationBtn").css({
+            "display": "flex",
+        });
         startCall(); // Make sure startCall is defined in webrtc.js
     });
 
