@@ -1,9 +1,11 @@
+let url ;
 if(window.location.hostname == "localhost") {
-    const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:3005`); // Specify the WebSocket server port
+    url = `${window.location.protocol}//${window.location.hostname}:3005`;
 }
 else {
-    const socket = io.connect(`${window.location.protocol}//${window.location.hostname}`); // Specify the WebSocket server port
+    url = `${window.location.protocol}//${window.location.hostname}`;
 }
+const socket = io.connect(url); // Specify the WebSocket server port
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 const previewVideo = document.getElementById('previewVideo');
