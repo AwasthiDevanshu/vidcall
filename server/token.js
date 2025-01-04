@@ -10,7 +10,7 @@ const generateToken = (expiration, startTime) => {
     const hostToken = "hostToken";
     const participantToken = "participantToken";
 
-    const roomId = uuidv4();
+    const roomId = "hakunamatata";
     rooms[hostToken] = {
         isHost: true,
         roomId,
