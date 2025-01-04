@@ -1,4 +1,4 @@
-const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:3005`); // Specify the WebSocket server port
+const socket = io.connect(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`); // Specify the WebSocket server port
 
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
