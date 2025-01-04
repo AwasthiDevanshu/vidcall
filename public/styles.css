@@ -219,6 +219,10 @@ video {
 }
 
 
-#startRecording, #stopRecording, #extendExpirationBtn {
+#startRecording, #extendExpirationBtn {
+    display: none;
+}
+
+#callContainer {
     display: none;
 }

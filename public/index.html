@@ -35,7 +35,7 @@
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="Start Recording"><i class="bi bi-record-circle"></i></button>
                 
-                <button id="stopRecording" class="btn w-100" data-bs-toggle="tooltip" data-bs-placement="top"
+                <button id="stopRecording" class="btn w-100 d-none" data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="Stop Recording"><i class="fas fa-stop"></i></button>
                 
@@ -54,7 +54,7 @@
             <h2>Please wait for the host to join...</h2>
         </div>
 
-        <div class="video-container d-flex justify-content-center align-items-center position-relative">
+        <div id = "callContainer" class="video-container justify-content-center align-items-center position-relative">
             <div id="screenSharePreview" class="text-center" style="display: none;">
                 <video id="screenShareVideo" autoplay playsinline></video>
             </div>
@@ -113,7 +113,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="webrtc.js"></script>
     <script src="ui.js"></script>
-    <script src="chat.js"></script>
+    <!-- <script src="chat.js"></script> -->
     <script>
         const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))

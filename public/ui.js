@@ -1,16 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const toggleVideoBtn = document.getElementById('toggleVideo');
-    const toggleAudioBtn = document.getElementById('toggleAudio');
-    const shareScreenBtn = document.getElementById('shareScreen');
+    
     const previewToggleVideoBtn = document.getElementById('previewToggleVideo');
     const previewToggleAudioBtn = document.getElementById('previewToggleAudio');
     const previewShareScreenBtn = document.getElementById('previewShareScreen');
     const previewJoinMeetingBtn = document.getElementById('previewJoinMeeting');
-    const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const sendChatBtn = document.getElementById('sendChat');
-    const fileInput = document.getElementById('fileInput');
-    const sendFileBtn = document.getElementById('sendFile');
+    const callContainer = document.getElementById('callContainer');
+    // const chatMessages = document.getElementById('chatMessages');
+    // const chatInput = document.getElementById('chatInput');
+    // const sendChatBtn = document.getElementById('sendChat');
+    // const fileInput = document.getElementById('fileInput');
+    // const sendFileBtn = document.getElementById('sendFile');
     const extendExpirationBtn = document.getElementById('extendExpirationBtn');
     const startRecordingBtn = document.getElementById('startRecording');
     const stopRecordingBtn = document.getElementById('stopRecording');
@@ -44,6 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             screenTrack.onended = () => {
+                document.getElementById('screenSharePreview').style.display = 'none';
+                $('#videos-visible').removeClass("flex-column");
+                $('#videos-visible').css({ "width": "100%" });
                 screenShareVideo.srcObject = previewStream;
             };
         } catch (error) {
@@ -56,47 +58,18 @@ document.addEventListener('DOMContentLoaded', () => {
         localStream = previewStream;
         document.getElementById('previewContainer').style.display = 'none';
         document.getElementById('previewJoinMeeting').style.display = 'none';
+        document.getElementById('callContainer').style.display = 'flex';
         $("#startRecording, #extendExpirationBtn").css({
             "display": "flex",
         });
         startCall(); // Make sure startCall is defined in webrtc.js
     });
 
-    toggleVideoBtn.addEventListener('click', () => {
-        const videoTrack = localStream.getVideoTracks()[0];
-        videoTrack.enabled = !videoTrack.enabled;
-        toggleVideoBtn.innerHTML = videoTrack.enabled ? '<i class="fas fa-video"></i>' : '<i class="fas fa-video-slash"></i>';
-    });
+   
 
-    toggleAudioBtn.addEventListener('click', () => {
-        const audioTrack = localStream.getAudioTracks()[0];
-        audioTrack.enabled = !audioTrack.enabled;
-        toggleAudioBtn.innerHTML = audioTrack.enabled ? '<i class="fas fa-microphone"></i>' : '<i class="fas fa-microphone-slash"></i>';
-    });
 
-    shareScreenBtn.addEventListener('click', async () => {
-        try {
-            const displayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            const screenTrack = displayStream.getTracks()[0];
 
-            peerConnection.getSenders().forEach(sender => {
-                if (sender.track.kind === 'video') {
-                    sender.replaceTrack(screenTrack);
-                }
-            });
-
-            screenTrack.onended = () => {
-                peerConnection.getSenders().forEach(sender => {
-                    if (sender.track.kind === 'video') {
-                        sender.replaceTrack(localStream.getVideoTracks()[0]);
-                    }
-                });
-            };
-        } catch (error) {
-            console.error('Error sharing screen:', error);
-            alert('Error sharing screen: ' + error.message + '. Please check your browser permissions.');
-        }
-    });
+    // Recording functionality
     let recordedChunks = [];
     startRecordingBtn.addEventListener('click', () => {
         mediaRecorder = new MediaRecorder(localStream);
@@ -124,37 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     stopRecordingBtn.addEventListener('click', () => {
         mediaRecorder.stop();
+        mediaRecorder.onstop = () => {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'recording.webm';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
         document.getElementById('recordingIndicator').style.display = 'none';
         startRecordingBtn.classList.remove('d-none');
         stopRecordingBtn.classList.add('d-none');
     });
 
-    sendChatBtn.addEventListener('click', () => {
-        const message = chatInput.value;
-        socket.emit('chatMessage', { message, room: roomToken });
-        displayMessage({ message, sender: 'You' });
-        chatInput.value = '';
-    });
-
-    sendFileBtn.addEventListener('click', () => {
-        const file = fileInput.files[0];
-        const formData = new FormData();
-        formData.append('file', file);
-
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            socket.emit('fileShare', { filename: data.filename, originalname: data.originalname, room: roomToken });
-            displayFile({ originalname: data.originalname, url: `/uploads/${data.filename}`, sender: 'You' });
-        })
-        .catch(error => {
-            console.error('Error uploading file:', error);
-            alert('Error uploading file.');
-        });
-    });
 
     extendExpirationBtn.addEventListener('click', () => {
         fetch('/update-token', {
@@ -178,6 +137,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+    // sendChatBtn.addEventListener('click', () => {
+    //     const message = chatInput.value;
+    //     socket.emit('chatMessage', { message, room: roomToken });
+    //     displayMessage({ message, sender: 'You' });
+    //     chatInput.value = '';
+    // });
+
+    // sendFileBtn.addEventListener('click', () => {
+    //     const file = fileInput.files[0];
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+
+    //     fetch('/upload', {
+    //         method: 'POST',
+    //         body: formData
+    //     })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         socket.emit('fileShare', { filename: data.filename, originalname: data.originalname, room: roomToken });
+    //         displayFile({ originalname: data.originalname, url: `/uploads/${data.filename}`, sender: 'You' });
+    //     })
+    //     .catch(error => {
+    //         console.error('Error uploading file:', error);
+    //         alert('Error uploading file.');
+    //     });
+    // });
     // Functions to display messages and files in the chat
     function displayMessage(data) {
         const messageElement = document.createElement('p');
