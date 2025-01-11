@@ -40,7 +40,9 @@ function initMediaStream() {
             previewVideo.srcObject = stream;
             previewStream = stream;
             localStream = stream; // Ensure localStream is set for video call
-            localVideo.srcObject = stream; // Set the stream to local video element
+            localVideo.srcObject = stream; 
+            localVideo.muted = true;
+            // Set the stream to local video element
         })
         .catch(error => {
             console.error('Error accessing media devices for preview:', error);
@@ -192,7 +194,9 @@ function createPeerConnection(participantId) {
         console.log('Adding track:', track);
         peerConnection.addTrack(track, localStream);
     });
-
+    localVideo.srcObject = localStream;
+    localVideo.muted = true;
+    previewVideo.muted = true;
     return peerConnection;
 }
 
