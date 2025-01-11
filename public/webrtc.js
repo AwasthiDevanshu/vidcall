@@ -79,7 +79,7 @@ mediaStreamInitialized.then(() => {
 // Socket event listeners
 socket.on('host', async () => {
     await mediaStreamInitialized;
-    startCall();
+    
     console.log('Host connected');
     if (waitingMessage) {
         waitingMessage.style.display = 'none'; // Hide the waiting message
@@ -88,7 +88,7 @@ socket.on('host', async () => {
 
 socket.on('participant', async () => {
     await mediaStreamInitialized;
-    startCall();
+    
     if (waitingMessage) {
         waitingMessage.style.display = 'none'; // Hide the waiting message
     }
@@ -215,6 +215,28 @@ function createScreenPeerConnection() {
         $('#videos-visible').addClass("flex-column");
         $('#videos-visible').css({ "width": "20%" });
         $('#screenSharePreview').css({ "width": "80%" });
+
+        stream.getTracks().forEach(track => {
+            if (track.kind === 'video') {
+                track.onended = () => {
+                    console.log('Screen sharing stopped.');
+                    document.getElementById('screenSharePreview').style.display = 'none';
+                    $('#videos-visible').removeClass("flex-column");
+                    $('#videos-visible').css({ "width": "100%" });
+                    screenShareVideo.srcObject = null;
+                };
+            }
+        });
+    };
+    screenPeerConnection.oniceconnectionstatechange = () => {
+        if (screenPeerConnection.iceConnectionState === 'disconnected' || screenPeerConnection.iceConnectionState === 'failed' || screenPeerConnection.iceConnectionState === 'closed') {
+            console.log('Screen sharing peer connection disconnected.');
+            // Remove the screen share video element
+            document.getElementById('screenSharePreview').style.display = 'none';
+            $('#videos-visible').removeClass("flex-column");
+            $('#videos-visible').css({ "width": "100%" });
+            screenShareVideo.srcObject = null;
+        }
     };
 }
 
