@@ -26,6 +26,10 @@
                 <button id="previewShareScreen" class="btn w-100" data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="Share Screen"><i class="fas fa-desktop"></i></button>
+
+                <button id="stopShareScreen" class="btn w-100 d-none" data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Stop Sharing"><i class="fas fa-window-close"></i></button>
                 
                 <button id="previewJoinMeeting" class="btn w-100" data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
@@ -56,7 +60,7 @@
             <h4 class="preview-text">Preview Screen</h4>
         </div>
 
-        <div id="waitingMessage" class="text-center my-5">
+        <div id="waitingMessage" class="text-center my-5" style="display: none;">
             <h2>Please wait for the host to join...</h2>
         </div>
 

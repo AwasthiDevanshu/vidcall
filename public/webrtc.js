@@ -83,8 +83,9 @@ socket.on('host', async () => {
     await mediaStreamInitialized;
     
     console.log('Host connected');
-    if (waitingMessage) {
+    if (waitingMessage.style.display !== 'none') {
         waitingMessage.style.display = 'none'; // Hide the waiting message
+  //      startCall();
     }
 });
 

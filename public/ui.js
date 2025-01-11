@@ -3,15 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewToggleVideoBtn = document.getElementById('previewToggleVideo');
     const previewToggleAudioBtn = document.getElementById('previewToggleAudio');
     const previewShareScreenBtn = document.getElementById('previewShareScreen');
+    const stopShareScreenBtn = document.getElementById('stopShareScreen');
     
     const previewJoinMeetingBtn = document.getElementById('previewJoinMeeting');
     const remoteVideosContainer = document.getElementById('remoteVideosContainer');
     const callContainer = document.getElementById('callContainer');
-    // const chatMessages = document.getElementById('chatMessages');
-    // const chatInput = document.getElementById('chatInput');
-    // const sendChatBtn = document.getElementById('sendChat');
-    // const fileInput = document.getElementById('fileInput');
-    // const sendFileBtn = document.getElementById('sendFile');
+
     const extendExpirationBtn = document.getElementById('extendExpirationBtn');
     const disconnectBtn = document.getElementById('disconnectBtn');
     const startRecordingBtn = document.getElementById('startRecording');
@@ -30,14 +27,22 @@ document.addEventListener('DOMContentLoaded', () => {
         audioTrack.enabled = !audioTrack.enabled;
         previewToggleAudioBtn.innerHTML = audioTrack.enabled ? '<i class="fas fa-microphone"></i>' : '<i class="fas fa-microphone-slash"></i>';
     });
+
+
     
     disconnectBtn.addEventListener('click', () => {
+        peerConnection.close();
+        peerConnection = null;
+        screenPeerConnection.close();
+        screenPeerConnection = null;
+        localStream = null;
+        remoteStreams = {};
         window.location.href = '/thanku.html';
     });
 
     
     
-        let screenSender;
+    let screenSender;
     
     previewShareScreenBtn.addEventListener('click', async () => {
         try {
@@ -53,15 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
             await screenPeerConnection.setLocalDescription(offer);
             socket.emit('offer', { offer: offer, room: roomToken, type: 'screen' });
     
-            // Add the screen track to the new peer connection
-            
-    
-            // // Handle ICE candidates for the screen sharing connection
-            // screenPeerConnection.onicecandidate = event => {
-            //     if (event.candidate) {
-            //         socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'screen' });
-            //     }
-            // };
+           
+            previewShareScreenBtn.classList.add('d-none');
+            stopShareScreenBtn.classList.remove('d-none');
     
             
             screenShareVideo.srcObject = screenStream;
@@ -74,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 screenPeerConnection.close();
                 screenPeerConnection = null;
                 screenSender = null;
+                previewShareScreenBtn.classList.remove('d-none');
+                stopShareScreenBtn.classList.add('d-none');
                 document.getElementById('screenSharePreview').style.display = 'none';
                 $('#videos-visible').removeClass("flex-column");
                 $('#videos-visible').css({ "width": "100%" });
@@ -85,12 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
+    stopShareScreenBtn.addEventListener('click', stopScreenSharing);
     //To stop screen share
     function stopScreenSharing() {
         if (screenSender) {
             const track = screenSender.track;
-            track.stop(); // This will trigger the onended event above
-            peerConnection.removeTrack(screenSender);
+            track.stop();
+            track.dispatchEvent(new Event('ended')); // This will trigger the onended event above
             screenSender = null;
         }
     }
