@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     
         let screenSender;
-    let screenPeerConnection;
     
     previewShareScreenBtn.addEventListener('click', async () => {
         try {
@@ -46,22 +45,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const screenTrack = screenStream.getTracks()[0];
     
             // Create a new RTCPeerConnection for screen sharing
-            screenPeerConnection = new RTCPeerConnection();
-            // Add the screen track to the new peer connection
+            createScreenPeerConnection();
+
             screenSender = screenPeerConnection.addTrack(screenTrack, screenStream);
-    
-            // Handle ICE candidates for the screen sharing connection
-            screenPeerConnection.onicecandidate = event => {
-                if (event.candidate) {
-                    socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'screen' });
-                }
-            };
-    
-            // Create and send an offer for the screen sharing connection
+            
             const offer = await screenPeerConnection.createOffer();
             await screenPeerConnection.setLocalDescription(offer);
             socket.emit('offer', { offer: offer, room: roomToken, type: 'screen' });
     
+            // Add the screen track to the new peer connection
+            
+    
+            // // Handle ICE candidates for the screen sharing connection
+            // screenPeerConnection.onicecandidate = event => {
+            //     if (event.candidate) {
+            //         socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'screen' });
+            //     }
+            // };
+    
+            
             screenShareVideo.srcObject = screenStream;
             document.getElementById('screenSharePreview').style.display = 'block';
             $('#videos-visible').addClass("flex-column");
