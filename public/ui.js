@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewToggleVideoBtn = document.getElementById('previewToggleVideo');
     const previewToggleAudioBtn = document.getElementById('previewToggleAudio');
     const previewShareScreenBtn = document.getElementById('previewShareScreen');
+    
     const previewJoinMeetingBtn = document.getElementById('previewJoinMeeting');
+    const remoteVideosContainer = document.getElementById('remoteVideosContainer');
     const callContainer = document.getElementById('callContainer');
     // const chatMessages = document.getElementById('chatMessages');
     // const chatInput = document.getElementById('chatInput');
@@ -11,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // const fileInput = document.getElementById('fileInput');
     // const sendFileBtn = document.getElementById('sendFile');
     const extendExpirationBtn = document.getElementById('extendExpirationBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
     const startRecordingBtn = document.getElementById('startRecording');
     const stopRecordingBtn = document.getElementById('stopRecording');
     const screenShareVideo = document.getElementById('screenShareVideo');
@@ -27,32 +30,48 @@ document.addEventListener('DOMContentLoaded', () => {
         audioTrack.enabled = !audioTrack.enabled;
         previewToggleAudioBtn.innerHTML = audioTrack.enabled ? '<i class="fas fa-microphone"></i>' : '<i class="fas fa-microphone-slash"></i>';
     });
+    
+    disconnectBtn.addEventListener('click', () => {
+        window.location.href = '/thanku.html';
+    });
 
+    
+    
+        let screenSender;
+    let screenPeerConnection;
+    
     previewShareScreenBtn.addEventListener('click', async () => {
         try {
-            const displayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-            const screenTrack = displayStream.getTracks()[0];
-            peerConnection.getSenders().forEach(sender => {
-                if (sender.track.kind === 'video') {
-                    sender.replaceTrack(screenTrack);
+            const screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+            const screenTrack = screenStream.getTracks()[0];
+    
+            // Create a new RTCPeerConnection for screen sharing
+            screenPeerConnection = new RTCPeerConnection();
+            // Add the screen track to the new peer connection
+            screenSender = screenPeerConnection.addTrack(screenTrack, screenStream);
+    
+            // Handle ICE candidates for the screen sharing connection
+            screenPeerConnection.onicecandidate = event => {
+                if (event.candidate) {
+                    socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'screen' });
                 }
-            });
-            screenShareVideo.srcObject = displayStream;
+            };
+    
+            // Create and send an offer for the screen sharing connection
+            const offer = await screenPeerConnection.createOffer();
+            await screenPeerConnection.setLocalDescription(offer);
+            socket.emit('offer', { offer: offer, room: roomToken, type: 'screen' });
+    
+            screenShareVideo.srcObject = screenStream;
             document.getElementById('screenSharePreview').style.display = 'block';
             $('#videos-visible').addClass("flex-column");
-            $('#videos-visible').css({
-                "width": "20%",
-            });
-            $('#screenSharePreview').css({
-                "width": "80%",
-            });
-
+            $('#videos-visible').css({ "width": "20%" });
+            $('#screenSharePreview').css({ "width": "80%" });
+    
             screenTrack.onended = () => {
-                peerConnection.getSenders().forEach(sender => {
-                    if (sender.track.kind === 'video') {
-                        sender.replaceTrack(localStream.getVideoTracks()[0]);
-                    }
-                });
+                screenPeerConnection.close();
+                screenPeerConnection = null;
+                screenSender = null;
                 document.getElementById('screenSharePreview').style.display = 'none';
                 $('#videos-visible').removeClass("flex-column");
                 $('#videos-visible').css({ "width": "100%" });
@@ -63,6 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Error sharing screen: ' + error.message + '. Please check your browser permissions.');
         }
     });
+    
+    //To stop screen share
+    function stopScreenSharing() {
+        if (screenSender) {
+            const track = screenSender.track;
+            track.stop(); // This will trigger the onended event above
+            peerConnection.removeTrack(screenSender);
+            screenSender = null;
+        }
+    }
+    
 
 
 
@@ -70,8 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
         localStream = previewStream;
         document.getElementById('previewContainer').style.display = 'none';
         document.getElementById('previewJoinMeeting').style.display = 'none';
-        document.getElementById('callContainer').style.display = 'flex';
-        $("#startRecording, #extendExpirationBtn").css({
+        callContainer.style.display = 'flex';
+        $("#startRecording, #extendExpirationBtn, #disconnectBtn").css({
             "display": "flex",
         });
         startCall(); // Make sure startCall is defined in webrtc.js
@@ -83,48 +113,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Recording functionality
     let recordedChunks = [];
-    startRecordingBtn.addEventListener('click', () => {
-        mediaRecorder = new MediaRecorder(localStream);
-        mediaRecorder.ondataavailable = event => {
-            if (event.data.size > 0) {
-                recordedChunks.push(event.data);
-            }
-        };
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'recording.webm';
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url);
-        };
-        mediaRecorder.start();
-        document.getElementById('recordingIndicator').style.display = 'block';
-        startRecordingBtn.classList.add('d-none');
-        stopRecordingBtn.classList.remove('d-none');
+    let mediaRecorder;
+    
+    startRecordingBtn.addEventListener('click', async () => {
+        try {
+            // Combine local and remote streams into a single MediaStream
+            const combinedStream = new MediaStream();
+    
+            // Add tracks from localStream (local video/audio)
+            localStream.getTracks().forEach(track => combinedStream.addTrack(track));
+    
+            // Add tracks from remoteStream (remote video/audio)
+            remoteStream.getTracks().forEach(track => combinedStream.addTrack(track));
+    
+            // Create MediaRecorder for the combined stream
+            mediaRecorder = new MediaRecorder(combinedStream);
+            mediaRecorder.ondataavailable = event => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'recording.webm';
+                document.body.appendChild(a);
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+            mediaRecorder.start();
+            document.getElementById('recordingIndicator').style.display = 'block';
+            startRecordingBtn.classList.add('d-none');
+            stopRecordingBtn.classList.remove('d-none');
+        } catch (error) {
+            console.error('Error starting recording:', error);
+            alert('Error starting recording: ' + error.message + '. Please check your browser permissions.');
+        }
     });
-
+    
     stopRecordingBtn.addEventListener('click', () => {
-        mediaRecorder.stop();
-        mediaRecorder.onstop = () => {
-            const blob = new Blob(recordedChunks, { type: 'video/webm' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = url;
-            a.download = 'recording.webm';
-            document.body.appendChild(a);
-            a.click();
-            URL.revokeObjectURL(url);
-        };
-
+        if (mediaRecorder) {
+            mediaRecorder.stop();
+        }
         document.getElementById('recordingIndicator').style.display = 'none';
         startRecordingBtn.classList.remove('d-none');
         stopRecordingBtn.classList.add('d-none');
     });
+    
+    
 
 
     extendExpirationBtn.addEventListener('click', () => {
@@ -195,4 +234,5 @@ document.addEventListener('DOMContentLoaded', () => {
         chatMessages.appendChild(fileElement);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+    
 });

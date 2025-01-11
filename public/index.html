@@ -42,6 +42,12 @@
                 <button id="extendExpirationBtn" class="btn" data-bs-toggle="tooltip" data-bs-placement="top"
                 data-bs-custom-class="custom-tooltip"
                 data-bs-title="+ Add 10 mins."><i class="fas fa-clock"></i></button>
+
+                <button id="disconnectBtn" class="btn disconnect-button" data-bs-toggle="tooltip" data-bs-placement="top"
+                data-bs-custom-class="custom-tooltip"
+                data-bs-title="Disconnect.">
+                    <i class="fas fa-phone-slash"></i> 
+                  </button>
             </div>
         </div>
     <div class="container p-0 position-relative">
@@ -60,6 +66,7 @@
             </div>
             <div class="d-flex justify-content-center align-items-center position-relative" id="videos-visible">
                 <video id="remoteVideo" autoplay playsinline class="border"></video>
+                <div id="remoteVideosContainer"></div>
                 <video id="localVideo" autoplay playsinline class="border"></video>
             </div>
         </div>

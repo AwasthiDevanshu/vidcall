@@ -219,10 +219,73 @@ video {
 }
 
 
-#startRecording, #extendExpirationBtn {
+#startRecording, #extendExpirationBtn, #disconnectBtn {
     display: none;
 }
 
 #callContainer {
     display: none;
 }
+
+/* Basic styling for the button */
+.disconnect-button {
+    background-color: #dc3545; /* Red background */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex; /* Use flexbox for icon and text alignment */
+    align-items: center; /* Vertically align icon and text */
+    justify-content: center;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+  }
+  
+  .disconnect-button:hover {
+    background-color: #bd2130; /* Darker red on hover */
+  }
+  
+  .disconnect-button:focus {
+      outline: none; /* Remove default focus outline */
+      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.5); /* Add a focus ring */
+  }
+  
+  /* Style for the icon */
+  .disconnect-button i {
+    margin-right: 8px; /* Add some spacing between icon and text */
+    font-size: 1.2em; /* Slightly larger icon */
+  }
+  
+  /* Optional: Hide text on smaller screens and only show the icon */
+  @media (max-width: 400px) { /* Adjust breakpoint as needed */
+    .disconnect-button .button-text {
+      display: none;
+    }
+    .disconnect-button {
+      padding: 10px; /* Reduce padding on smaller screens */
+    }
+  }
+  
+  /* Optional: Add a "disconnecting" state */
+  .disconnect-button.disconnecting {
+    background-color: #ffc107; /* Yellow background */
+    cursor: default; /* Change cursor to indicate loading */
+    color: #333;
+  }
+  
+  .disconnect-button.disconnecting i {
+      animation: rotating 2s linear infinite;
+  }
+  
+  @keyframes rotating {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
