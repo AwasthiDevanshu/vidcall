@@ -18,6 +18,8 @@ let previewStream;
 let peerConnection;
 let screenPeerConnection;
 let screenSender;
+let peerIceCandidatesQueue = [];
+let screenIceCandidatesQueue = [];
 
 const config = {
     iceServers: [
@@ -210,7 +212,10 @@ async function handleOffer(offer, type) {
             
             // Log answer data before sending
             console.log('Sending answer:', answer);
-            
+            while (screenIceCandidatesQueue.length > 0) {
+                const candidate = screenIceCandidatesQueue.shift();
+                await screenPeerConnection.addIceCandidate(candidate);
+            }
             socket.emit('answer', { answer: answer, room: roomToken, type: "screen" });
         } catch (error) {
             console.error('Error handling an offer:', error);
@@ -221,6 +226,10 @@ async function handleOffer(offer, type) {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
+            while (peerIceCandidatesQueue.length > 0) {
+                const candidate = peerIceCandidatesQueue.shift();
+                await peerConnection.addIceCandidate(candidate);
+            }
             
             // Log answer data before sending
             console.log('Sending answer:', answer);
@@ -261,17 +270,21 @@ socket.on('candidate', async (data) => {
 
 async function handleCandidate(candidate, type) {
     try {
-        // Validate ICE candidate properties
-        // if (!candidate || !candidate.sdpMid || !candidate.sdpMLineIndex) {
-        //     throw new Error('Invalid ICE candidate: Missing sdpMid or sdpMLineIndex');
-        // }
-        if(type == "screen"){
-            await screenPeerConnection.addIceCandidate(new RTCIceCandidate(candidate));
-        } else{
-            await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+        if (type === "screen") {
+            if (screenPeerConnection.remoteDescription) {
+                await screenPeerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+            } else {
+                screenIceCandidatesQueue.push(new RTCIceCandidate(candidate));
+            }
+        } else {
+            if (peerConnection.remoteDescription) {
+                await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+            } else {
+                peerIceCandidatesQueue.push(new RTCIceCandidate(candidate));
+            }
         }
     } catch (error) {
-        console.error('Error handling an ICE candidate:', error);
+        console.error('Error adding ICE candidate:', error);
     }
 }
 
