@@ -7,7 +7,6 @@ else {
 }
 const socket = io.connect(url); // Specify the WebSocket server port
 const localVideo = document.getElementById('localVideo');
-const remoteVideo = document.getElementById('remoteVideo');
 const screenShareVideo = document.getElementById('screenShareVideo');
 const previewVideo = document.getElementById('previewVideo');
 const waitingMessage = document.getElementById('waitingMessage'); // Add this line to get the waiting message element
@@ -108,7 +107,7 @@ socket.on('participantDisconnected', () => {
 
 socket.on('offer', async (data) => {
     console.log('Offer received:', data);
-    await handleOffer(data.offer, data.type);
+    await handleOffer(data.offer, data.type, data.participantId);
 });
 
 socket.on('answer', async (data) => {
@@ -141,26 +140,60 @@ if (roomToken) {
     alert('No room token provided in URL.');
 }
 
-function createPeerConnection() {
-    peerConnection = new RTCPeerConnection(config);
+let remoteStreams = {};
+
+function createPeerConnection(participantId) {
+    const peerConnection = new RTCPeerConnection(config);
 
     peerConnection.onicecandidate = event => {
         if (event.candidate) {
             console.log('ICE candidate:', event.candidate);
-            socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'video' });
+            socket.emit('candidate', { candidate: event.candidate, room: roomToken, type: 'video', participantId: participantId });
         }
     };
 
     peerConnection.ontrack = event => {
-        console.log('Remote stream received:', event.streams[0]);
-        remoteVideo.srcObject = event.streams[0];
-        remoteStream = event.streams[0];
+        const stream = event.streams[0];
+        console.log('Remote stream received:', stream);
+
+        if (!remoteStreams[participantId]) {
+            remoteStreams[participantId] = { stream: stream, peerConnection: peerConnection };
+
+
+            // Create a new video element for the remote stream
+            const remoteVideo = document.createElement('video');
+            remoteVideo.id = `remoteVideo_${participantId}`;
+            remoteVideo.srcObject = stream;
+            remoteVideo.autoplay = true;
+            remoteVideo.playsinline = true;
+            remoteVideo.classList.add('remote-video');
+
+            // Add the video element to the remote videos container
+            document.getElementById('remoteVideosContainer').appendChild(remoteVideo);
+        } else {
+            // Update the existing video element's stream
+            document.getElementById(`remoteVideo_${participantId}`).srcObject = stream;
+        }
+    };
+    peerConnection.oniceconnectionstatechange = () => {
+        if (peerConnection.iceConnectionState === 'disconnected' || peerConnection.iceConnectionState === 'failed' || peerConnection.iceConnectionState === 'closed') {
+            console.log(`Peer connection with participant ${participantId} disconnected.`);
+            // Remove the video element
+            const remoteVideo = document.getElementById(`remoteVideo_${participantId}`);
+            if (remoteVideo) {
+                remoteVideo.remove();
+            }
+            // Clean up the remoteStreams entry
+            delete remoteStreams[participantId];
+        }
     };
 
     localStream.getTracks().forEach(track => {
         console.log('Adding track:', track);
         peerConnection.addTrack(track, localStream);
     });
+
+    return peerConnection;
 }
 
 
@@ -186,23 +219,9 @@ function createScreenPeerConnection() {
 }
 
 
-// async function createOffer() {
-//     createPeerConnection();
-//     try {
-//         const offer = await peerConnection.createOffer();
-//         await peerConnection.setLocalDescription(offer);
-        
-//         // Log offer data before sending
-//         console.log('Creating offer:', offer);
-        
-//         socket.emit('offer', { offer: offer, room: roomToken });
-//     } catch (error) {
-//         console.error('Error creating an offer:', error);
-//     }
-// }
 
 
-async function handleOffer(offer, type) {
+async function handleOffer(offer, type, participantId) {
     if (type === "screen") {
         createScreenPeerConnection();
         try {
@@ -210,22 +229,24 @@ async function handleOffer(offer, type) {
             const answer = await screenPeerConnection.createAnswer();
             await screenPeerConnection.setLocalDescription(answer);
             
-            // Log answer data before sending
-            console.log('Sending answer:', answer);
+            // Process queued ICE candidates
             while (screenIceCandidatesQueue.length > 0) {
                 const candidate = screenIceCandidatesQueue.shift();
                 await screenPeerConnection.addIceCandidate(candidate);
             }
-            socket.emit('answer', { answer: answer, room: roomToken, type: "screen" });
+            
+            socket.emit('answer', { answer: answer, room: roomToken, type: "screen", participantId: participantId });
         } catch (error) {
             console.error('Error handling an offer:', error);
         }
     } else {
-        createPeerConnection();
+        const peerConnection = createPeerConnection(participantId);
         try {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
             const answer = await peerConnection.createAnswer();
             await peerConnection.setLocalDescription(answer);
+            
+            // Process queued ICE candidates
             while (peerIceCandidatesQueue.length > 0) {
                 const candidate = peerIceCandidatesQueue.shift();
                 await peerConnection.addIceCandidate(candidate);
@@ -234,7 +255,7 @@ async function handleOffer(offer, type) {
             // Log answer data before sending
             console.log('Sending answer:', answer);
             
-            socket.emit('answer', { answer: answer, room: roomToken, type: "video" });
+            socket.emit('answer', { answer: answer, room: roomToken, type: "video", participantId: participantId });
         } catch (error) {
             console.error('Error handling an offer:', error);
         }
@@ -265,10 +286,10 @@ async function handleAnswer(answer, type) {
 
 socket.on('candidate', async (data) => {
     console.log('ICE candidate received:', data); // Log received candidate data
-    await handleCandidate(data.candidate, data.type);
+    await handleCandidate(data.candidate, data.type, data.participantId);
 });
 
-async function handleCandidate(candidate, type) {
+async function handleCandidate(candidate, type, participantId) {
     try {
         if (type === "screen") {
             if (screenPeerConnection.remoteDescription) {
@@ -277,7 +298,8 @@ async function handleCandidate(candidate, type) {
                 screenIceCandidatesQueue.push(new RTCIceCandidate(candidate));
             }
         } else {
-            if (peerConnection.remoteDescription) {
+            const peerConnection = remoteStreams[participantId]?.peerConnection;
+            if (peerConnection && peerConnection.remoteDescription) {
                 await peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
             } else {
                 peerIceCandidatesQueue.push(new RTCIceCandidate(candidate));
@@ -291,7 +313,9 @@ async function handleCandidate(candidate, type) {
 
 async function startCall() {
     if (localStream) {
-        createPeerConnection();
+        const participantId = generateUUID(); // Generate a unique participant ID
+       
+        peerConnection = createPeerConnection(participantId);
         createScreenPeerConnection();
         try {
             const offer = await peerConnection.createOffer();
@@ -300,7 +324,7 @@ async function startCall() {
             // Log offer data before sending
             console.log('Starting call with offer:', offer);
             
-            socket.emit('offer', { offer: offer, room: roomToken,type: "video" });
+            socket.emit('offer', { offer: offer, room: roomToken,type: "video",participantId: participantId });
         } catch (error) {
             console.error('Error starting the call.', error);
         }
@@ -308,4 +332,12 @@ async function startCall() {
         console.error('Local stream is not available.');
         alert('Local stream is not available. Please check media device permissions and connections.');
     }
+}
+
+
+function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
 }

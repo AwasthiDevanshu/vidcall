@@ -217,7 +217,18 @@ video {
 .btn-primary, .btn-secondary, .btn-info, .btn-success, .btn-warning, .btn-danger {
     border-radius: 50px;
 }
+#remoteVideosContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
+.remote-video {
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+    background-color: black;
+}
 
 #startRecording, #extendExpirationBtn, #disconnectBtn {
     display: none;
